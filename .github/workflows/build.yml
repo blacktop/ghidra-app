@@ -16,14 +16,26 @@ jobs:
         repository: NationalSecurityAgency/ghidra
         ref: Ghidra_11.0_build
         path: ghidra
-    - name: Build
+    - name: Build (fetchDependencies)
       run: |
         cd ghidra
         gradle -I gradle/support/fetchDependencies.gradle init
+    - name: Build (buildNatives)
+      run: |
+        cd ghidra
         gradle buildNatives
+    - name: Build (assembleAll)
+      run: |
+        cd ghidra
         gradle assembleAll
+    - name: Build (buildGhidra)
+      run: |
+        cd ghidra
         gradle buildGhidra
-        ../CreateGhidraApp.sh ./build/dist/ghidra_11.0_PUBLIC_*.zip
+    - name: CreateGhidraApp
+      run: |
+        ls -lah ghidra/build/dist/
+        ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_PUBLIC_*.zip
     - name: Release
       uses: actions/create-release@v1
       id: create_release
