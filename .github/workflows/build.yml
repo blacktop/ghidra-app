@@ -17,6 +17,8 @@ jobs:
         repository: NationalSecurityAgency/ghidra
         ref: Ghidra_11.0_build
         path: ghidra
+    - name: Deps
+      run: brew install imagemagick
     - name: Build (fetchDependencies)
       run: |
         cd ghidra
@@ -29,8 +31,6 @@ jobs:
     #   run: |
     #     cd ghidra
     #     gradle assembleAll
-    - name: Deps
-      run: brew install imagemagick
     - name: Build (buildGhidra)
       run: |
         cd ghidra
@@ -39,8 +39,7 @@ jobs:
       run: |
         ls -lah ghidra/build/dist/
         unzip ghidra/build/dist/ghidra_11.0_*.zip -d ghidra/build/dist/
-        mv ghidra/build/dist/ghidra_11.0_* ghidra/build/dist/ghidra
-        ./CreateGhidraApp.sh ghidra/build/dist/ghidra
+        ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_DEV
         zip Ghidra_11.0.zip -r Ghidra.app/
         shasum -a 256 Ghidra_11.0.zip > Ghidra_11.0.zip.sha256
     - name: Release
