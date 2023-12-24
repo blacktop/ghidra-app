@@ -1,4 +1,4 @@
-# 🚧 ghidra-apple-silicon 🚧
+# ghidra-apple-silicon
 
 [![Build](https://github.com/blacktop/ghidra-apple-silicon/actions/workflows/build.yml/badge.svg)](https://github.com/blacktop/ghidra-apple-silicon/actions/workflows/build.yml)
 
@@ -11,7 +11,7 @@ This will be the asset host for a homebrew tap for Ghidra on Apple Silicon.
 ## Usage
 
 ```sh
-brew install blacktop/tap/ghidra
+brew install --cask blacktop/tap/ghidra
 ``` 
 
 ## Credits
