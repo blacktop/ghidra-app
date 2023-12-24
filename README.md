@@ -16,6 +16,7 @@ brew install blacktop/tap/ghidra
 
 ## Credits
 
+- [Ghidra](https://github.com/NationalSecurityAgency/ghidra)
 - [CreateGhidraApp.sh](https://gist.github.com/saagarjha/777909b257dbfa98649476b7f5af41bb) @saagarjha
 
 ## License

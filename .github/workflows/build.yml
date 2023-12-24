@@ -11,7 +11,8 @@ jobs:
     runs-on: macos-latest-xlarge
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/checkout@v4
+    - name: Clone Ghidra    
+      uses: actions/checkout@v4
       with:
         repository: NationalSecurityAgency/ghidra
         ref: Ghidra_11.0_build
@@ -24,10 +25,10 @@ jobs:
       run: |
         cd ghidra
         gradle buildNatives
-    - name: Build (assembleAll)
-      run: |
-        cd ghidra
-        gradle assembleAll
+    # - name: Build (assembleAll)
+    #   run: |
+    #     cd ghidra
+    #     gradle assembleAll
     - name: Build (buildGhidra)
       run: |
         cd ghidra
@@ -35,7 +36,7 @@ jobs:
     - name: CreateGhidraApp
       run: |
         ls -lah ghidra/build/dist/
-        ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_PUBLIC_*.zip
+        ./CreateGhidraApp.sh ghidra/build/dist/
     - name: Release
       uses: actions/create-release@v1
       id: create_release
@@ -52,6 +53,6 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./build/dist/Ghidra.zip
+        asset_path: ./build/dist/*.zip
         asset_name: Ghidra.zip
         asset_content_type: application/zip
