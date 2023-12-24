@@ -1,5 +1,7 @@
 # 🚧 ghidra-apple-silicon 🚧
 
+[![Build](https://github.com/blacktop/ghidra-apple-silicon/actions/workflows/build.yml/badge.svg)](https://github.com/blacktop/ghidra-apple-silicon/actions/workflows/build.yml)
+
 > Ghidra CI/CD to build and host Apple Silicon Ghidra.app
 
 ## Why? 🤔
