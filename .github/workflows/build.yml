@@ -42,6 +42,7 @@ jobs:
         mv ghidra/build/dist/ghidra_11.0_* ghidra/build/dist/ghidra
         ./CreateGhidraApp.sh ghidra/build/dist/ghidra
         zip Ghidra_11.0.zip -r Ghidra.app/
+        shasum -a 256 Ghidra_11.0.zip > Ghidra_11.0.zip.sha256
     - name: Release
       uses: actions/create-release@v1
       id: create_release
@@ -61,3 +62,12 @@ jobs:
         asset_path: Ghidra_11.0.zip
         asset_name: Ghidra_11.0.zip
         asset_content_type: application/zip
+    - name: Upload Darwin Artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: Ghidra_11.0.zip.sha256
+        asset_name: Ghidra_11.0.zip.sha256
+        asset_content_type: text/plain
