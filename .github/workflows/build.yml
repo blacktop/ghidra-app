@@ -50,10 +50,16 @@ jobs:
         ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_DEV
         zip Ghidra_11.0.zip -r Ghidra.app/
         shasum -a 256 Ghidra_11.0.zip > Ghidra_11.0.zip.sha256
-    - name: Release
-      uses: softprops/action-gh-release@v1
+    - uses: actions/upload-artifact@v4
       with:
-        files: |
+        name: Ghidra
+        path: |     
           Ghidra_11.0.zip
-          Ghidra_11.0.zip.sha256        
-        tag_name: v11.0
+          Ghidra_11.0.zip.sha256                
+    # - name: Release
+    #   uses: softprops/action-gh-release@v1
+    #   with:
+    #     files: |
+    #       Ghidra_11.0.zip
+    #       Ghidra_11.0.zip.sha256        
+    #     tag_name: v11.0
