@@ -8,7 +8,7 @@ This will be the asset host for a homebrew tap for Ghidra on Apple Silicon.
 
 ## Credits
 
-- [CreateGhidraApp.sh](https://gist.github.com/saagarjha/777909b257dbfa98649476b7f5af41bb)
+- [CreateGhidraApp.sh](https://gist.github.com/saagarjha/777909b257dbfa98649476b7f5af41bb) @saagarjha
 
 ## License
 
