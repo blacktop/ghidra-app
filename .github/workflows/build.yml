@@ -26,10 +26,12 @@ jobs:
       uses: gradle/gradle-build-action@v2
     - name: Execute Gradle build
       run: |
+        cd ghidra
         gradle -I gradle/support/fetchDependencies.gradle init
         gradle buildNatives
         gradle assembleAll
         gradle buildGhidra
+        ../CreateGhidraApp.sh ./build/dist/ghidra_11.0_PUBLIC_*.zip
     - name: Release
       uses: actions/create-release@v1
       id: create_release
