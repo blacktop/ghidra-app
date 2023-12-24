@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest-xlarge
+    runs-on: macos-latest-large
     steps:
     - uses: actions/checkout@v4
     - name: Clone Ghidra    
@@ -17,6 +17,14 @@ jobs:
         repository: NationalSecurityAgency/ghidra
         ref: Ghidra_11.0_build
         path: ghidra
+    - uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-        
     - name: Deps
       run: brew install imagemagick
     - name: Build (fetchDependencies)
@@ -43,30 +51,9 @@ jobs:
         zip Ghidra_11.0.zip -r Ghidra.app/
         shasum -a 256 Ghidra_11.0.zip > Ghidra_11.0.zip.sha256
     - name: Release
-      uses: actions/create-release@v1
-      id: create_release
+      uses: softprops/action-gh-release@v1
       with:
-        draft: false
-        prerelease: false
-        release_name: "11.0"
-        tag_name: ${{ github.ref }}
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-    - name: Upload Darwin Artifact
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: Ghidra_11.0.zip
-        asset_name: Ghidra_11.0.zip
-        asset_content_type: application/zip
-    - name: Upload Darwin Artifact
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: Ghidra_11.0.zip.sha256
-        asset_name: Ghidra_11.0.zip.sha256
-        asset_content_type: text/plain
+        files: |
+          Ghidra_11.0.zip
+          Ghidra_11.0.zip.sha256        
+        tag_name: v11.0
