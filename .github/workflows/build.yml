@@ -8,7 +8,8 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest-xlarge
+    runs-on: macos-12
+    # runs-on: macos-latest-xlarge
     steps:
     - uses: actions/checkout@v4
     - name: Clone Ghidra
@@ -43,12 +44,16 @@ jobs:
         gradle buildGhidra
     - name: Deps
       run: brew install imagemagick
-    - name: CreateGhidraApp
+    - name: Unzip dist/ghidra.zip
       run: |
-        ls -lah
         ls -lah ghidra/build/dist/
         unzip ghidra/build/dist/ghidra_11.0_*.zip -d ghidra/build/dist/
+    - name: CreateGhidraApp
+      run: |
+        ls -lah      
         ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_DEV
+    - name: Zip Ghidra.app
+      run: |
         zip Ghidra_11.0.zip -r Ghidra.app/
         shasum -a 256 Ghidra_11.0.zip > Ghidra_11.0.zip.sha256
         cat Ghidra_11.0.zip.sha256
