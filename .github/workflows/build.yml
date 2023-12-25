@@ -41,7 +41,8 @@ jobs:
     - name: Build (buildGhidra)
       run: |
         cd ghidra
-        gradle buildGhidra
+        gradle buildGhidra -x ip -x createJavadocs -x createJsondocs -x zipJavadocs -x sleighCompile
+        # gradle buildGhidra
     - name: Deps
       run: brew install imagemagick
     - name: Unzip dist/ghidra.zip
@@ -50,7 +51,7 @@ jobs:
         unzip ghidra/build/dist/ghidra_11.0_*.zip -d ghidra/build/dist/
     - name: CreateGhidraApp
       run: |
-        ls -lah      
+        ls -lah
         ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_DEV
     - name: Zip Ghidra.app
       run: |
