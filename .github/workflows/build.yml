@@ -8,8 +8,7 @@ on:
 
 jobs:
   build:
-    # runs-on: macos-latest-xlarge
-    runs-on: macos-latest
+    runs-on: macos-latest-xlarge
     steps:
     - uses: actions/checkout@v4
     - name: Clone Ghidra    
@@ -47,12 +46,12 @@ jobs:
     - name: CreateGhidraApp
       run: |
         ls -lah
-        ls -lah script/CreateGhidraApp.sh
         ls -lah ghidra/build/dist/
         unzip ghidra/build/dist/ghidra_11.0_*.zip -d ghidra/build/dist/
-        sh script/CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_DEV
+        ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_DEV
         zip Ghidra_11.0.zip -r Ghidra.app/
         shasum -a 256 Ghidra_11.0.zip > Ghidra_11.0.zip.sha256
+        cat Ghidra_11.0.zip.sha256
     - uses: actions/upload-artifact@v4
       with:
         name: Ghidra
