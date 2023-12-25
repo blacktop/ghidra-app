@@ -12,7 +12,7 @@ This will be the asset host for a homebrew tap for Ghidra on Apple Silicon.
 ## Usage
 
 ```sh
-brew install --cask blacktop/tap/ghidra
+brew install --cask blacktop/tap/ghidra-app
 ``` 
 
 ## Credits
