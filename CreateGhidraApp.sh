@@ -137,9 +137,9 @@ cat << EOF > Ghidra.app/Contents/Info.plist
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
-		<string>$(GHIDRA_VERSION)</string>
+		<string>$GHIDRA_VERSION</string>
 		<key>CFBundleVersion</key>
-		<string>$(GHIDRA_VERSION)</string>
+		<string>$GHIDRA_VERSION</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>NSHumanReadableCopyright</key>
