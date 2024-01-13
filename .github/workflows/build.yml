@@ -52,7 +52,7 @@ jobs:
         cd ghidra
         gradle buildGhidra
     - name: Deps
-      run: brew install imagemagick
+      run: brew install imagemagick gh
     - name: Unzip dist/ghidra.zip
       run: |
         ls -lah ghidra/build/dist/
@@ -76,8 +76,4 @@ jobs:
           Ghidra_${{ env.GHIDRA_VERSION }}.zip
           Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
     - name: Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          Ghidra_${{ env.GHIDRA_VERSION }}.zip
-          Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
+      run: gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
