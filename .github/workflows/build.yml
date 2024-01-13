@@ -50,34 +50,34 @@ jobs:
     - name: Build (buildGhidra)
       run: |
         cd ghidra
-        gradle --init-script $RUNNER_PATH/init.gradle buildGhidra_mac_arm_64
+        gradle buildGhidra
     - name: Deps
       run: brew install imagemagick
     - name: Unzip dist/ghidra.zip
       run: |
         ls -lah ghidra/build/dist/
-        unzip ghidra/build/dist/ghidra_11.0_*.zip -d ghidra/build/dist/
+        unzip ghidra/build/dist/ghidra_$GHIDRA_VERSION_*.zip -d ghidra/build/dist/
     - name: CreateGhidraApp
       run: |
         ls -lah
-        ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_DEV
+        ./CreateGhidraApp.sh ghidra/build/dist/ghidra_$GHIDRA_VERSION_DEV
     # - name: Install Java
     #   run: |
     #     tar zxf java.tar.gz -C Ghidra.app/
     - name: Zip Ghidra.app
       run: |
-        zip Ghidra_11.0.zip -r Ghidra.app/
-        shasum -a 256 Ghidra_11.0.zip > Ghidra_11.0.zip.sha256
-        cat Ghidra_11.0.zip.sha256
+        zip Ghidra_$GHIDRA_VERSION.zip -r Ghidra.app/
+        shasum -a 256 Ghidra_$GHIDRA_VERSION.zip > Ghidra_$GHIDRA_VERSION.zip.sha256
+        cat Ghidra_$GHIDRA_VERSION.zip.sha256
     - uses: actions/upload-artifact@v4
       with:
         name: Ghidra
         path: |
-          Ghidra_11.0.zip
-          Ghidra_11.0.zip.sha256
+          Ghidra_$GHIDRA_VERSION.zip
+          Ghidra_$GHIDRA_VERSION.zip.sha256
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Ghidra_11.0.zip
-          Ghidra_11.0.zip.sha256
+          Ghidra_$GHIDRA_VERSION.zip
+          Ghidra_$GHIDRA_VERSION.zip.sha256
