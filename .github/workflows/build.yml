@@ -27,7 +27,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
     - name: Set GHIDRA_VERSION
-      run: echo "GHIDRA_VERSION=11.0" >> $GITHUB_ENV          
+      run: |
+        echo "GHIDRA_VERSION=$(grep application.version ghidra/Ghidra/application.properties | sed "s/application.version=//")" >> $GITHUB_ENV          
+        echo "$GHIDRA_VERSION"
+        echo "$GITHUB_ACTION_PATH"
     # - name: Download OpenJDK 17
     #   run: |
     #     curl -L -o java.tar.gz 'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9%2B9/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.9_9.tar.gz'
@@ -40,8 +43,8 @@ jobs:
       run: |
         pwd
         cd ghidra
-        gradle --project-dir Ghidra --init-script ~/init.gradle buildNatives_mac_arm_64
-        gradle --project-dir GPL --init-script ~/init.gradle buildNatives_mac_arm_64
+        gradle --project-dir Ghidra --init-script "$GITHUB_ACTION_PATH/init.gradle" buildNatives_mac_arm_64
+        gradle --project-dir GPL --init-script "$GITHUB_ACTION_PATH/init.gradle" buildNatives_mac_arm_64
     # - name: Build (assembleAll)
     #   run: |
     #     cd ghidra
