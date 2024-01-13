@@ -84,5 +84,6 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
+        ls -lah
         gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip
         gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
