@@ -137,9 +137,9 @@ cat << EOF > Ghidra.app/Contents/Info.plist
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
-		<string>$(grep application.version < "$1/Ghidra/application.properties" | sed "s/application.version=//")</string>
+		<string>$(GHIDRA_VERSION)</string>
 		<key>CFBundleVersion</key>
-		<string>$(grep application.version < "$1/Ghidra/application.properties" | sed "s/application.version=//" | sed "s/\.//g")</string>
+		<string>$(GHIDRA_VERSION)</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>NSHumanReadableCopyright</key>

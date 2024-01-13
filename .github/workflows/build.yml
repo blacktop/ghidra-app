@@ -8,7 +8,8 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest-xlarge
+    # runs-on: macos-latest-xlarge
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
     - name: Clone Ghidra
@@ -25,6 +26,12 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
+    - name: Set GHIDRA_VERSION
+      run: echo "GHIDRA_VERSION=11.0" >> $GITHUB_ENV          
+    # - name: Download OpenJDK 17
+    #   run: |
+    #     curl -L -o java.tar.gz 'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9%2B9/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.9_9.tar.gz'
+    #     echo "823777266415347983bbd87ccd8136537242ff27e62f307b7e8521494c665f0d" java.tar.gz | shasum --algorithm 256 --check --status
     - name: Build (fetchDependencies)
       run: |
         cd ghidra
@@ -32,7 +39,8 @@ jobs:
     - name: Build (buildNatives)
       run: |
         cd ghidra
-        gradle buildNatives
+        gradle --project-dir Ghidra --init-script ../init.gradle buildNatives_mac_arm_64
+        gradle --project-dir GPL --init-script ../init.gradle buildNatives_mac_arm_64
     # - name: Build (assembleAll)
     #   run: |
     #     cd ghidra
@@ -51,6 +59,9 @@ jobs:
       run: |
         ls -lah
         ./CreateGhidraApp.sh ghidra/build/dist/ghidra_11.0_DEV
+    # - name: Install Java
+    #   run: |
+    #     tar zxf java.tar.gz -C Ghidra.app/
     - name: Zip Ghidra.app
       run: |
         zip Ghidra_11.0.zip -r Ghidra.app/
@@ -62,10 +73,9 @@ jobs:
         path: |
           Ghidra_11.0.zip
           Ghidra_11.0.zip.sha256
-    # - name: Release
-    #   uses: softprops/action-gh-release@v1
-    #   with:
-    #     files: |
-    #       Ghidra_11.0.zip
-    #       Ghidra_11.0.zip.sha256
-    #     tag_name: v11.0
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          Ghidra_11.0.zip
+          Ghidra_11.0.zip.sha256
