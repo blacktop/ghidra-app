@@ -76,4 +76,6 @@ jobs:
           Ghidra_${{ env.GHIDRA_VERSION }}.zip
           Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
     - name: Release
+      env:
+        GH_TOKEN: ${{ github.token }}    
       run: gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
