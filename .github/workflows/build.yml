@@ -45,7 +45,7 @@ jobs:
     - name: Build (buildNatives)
       run: |
         cd ghidra
-        gradle --init-script $RUNNER_PATH/init.gradle buildNatives
+        gradle --init-script $RUNNER_PATH/init.gradle buildNatives_mac_arm_64
         # gradle --project-dir GPL --init-script $RUNNER_PATH/init.gradle buildNatives_mac_arm_64
     # - name: Build (assembleAll)
     #   run: |
