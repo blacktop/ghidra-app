@@ -38,6 +38,10 @@ jobs:
       run: |
         cd ghidra
         gradle -I gradle/support/fetchDependencies.gradle init
+    - name: Build (buildGhidra)
+      run: |
+        cd ghidra
+        gradle buildGhidra        
     - name: Build (buildNatives)
       run: |
         cd ghidra
@@ -47,10 +51,6 @@ jobs:
     #   run: |
     #     cd ghidra
     #     gradle assembleAll
-    - name: Build (buildGhidra)
-      run: |
-        cd ghidra
-        gradle buildGhidra
     - name: Deps
       run: brew install imagemagick gh
     - name: Unzip dist/ghidra.zip
