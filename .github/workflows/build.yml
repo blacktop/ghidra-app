@@ -85,7 +85,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         ls -lah
-        gh release upload v${{ env.GHIDRA_VERSION }} --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip
-        gh release upload v${{ env.GHIDRA_VERSION }} --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
+        gh release upload v${{ env.GHIDRA_VERSION }} --clobber ./Ghidra_${{ env.GHIDRA_VERSION }}.zip
+        gh release upload v${{ env.GHIDRA_VERSION }} --clobber ./Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
         echo "sha256: `${{ env.GHIDRA_SHA256 }}`" > notes.md
         gh release edit v${{ env.GHIDRA_VERSION }} --notes-file ./nodes.md 
