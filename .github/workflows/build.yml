@@ -46,7 +46,7 @@ jobs:
     - name: Build (buildGhidra)
       run: |
         cd ghidra
-        gradle --init-script $RUNNER_PATH/init.gradle buildGhidra -PallPlatforms
+        gradle buildGhidra -PallPlatforms
     # - name: Build (assembleAll)
     #   run: |
     #     cd ghidra
