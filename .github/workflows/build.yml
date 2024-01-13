@@ -20,13 +20,13 @@ jobs:
         path: ghidra
     - name: Set GHIDRA_VERSION
       run: |
-        grep application.version ghidra/Ghidra/application.properties | sed "s/application.version=//"
-        echo "GHIDRA_VERSION=$(grep application.version ghidra/Ghidra/application.properties | sed 's/application.version=//')" >> $GITHUB_ENV          
+        echo "GHIDRA_VERSION=$(grep application.version ghidra/Ghidra/application.properties | sed "s/application.version=//")" >> $GITHUB_ENV
+        echo $GHIDRA_VERSION
         echo "${{ env.GHIDRA_VERSION }}"
         echo "${{ github.GHIDRA_VERSION }}"
         echo "${{ github.action_path }}"
     - name: Test
-      run: echo $GHIDRA_VERSION        
+      run: echo $GHIDRA_VERSION
     - uses: actions/cache@v3
       with:
         path: |
