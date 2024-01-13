@@ -1,7 +1,7 @@
-# ghidra-apple-silicon
+# ghidra-app
 
-[![Build](https://github.com/blacktop/ghidra-apple-silicon/actions/workflows/build.yml/badge.svg)](https://github.com/blacktop/ghidra-apple-silicon/actions/workflows/build.yml)
-[![Downloads](https://img.shields.io/github/downloads/blacktop/ghidra-apple-silicon/total.svg)](https://github.com/blacktop/ghidra-apple-silicon/releases)
+[![Build](https://github.com/blacktop/ghidra-app/actions/workflows/build.yml/badge.svg)](https://github.com/blacktop/ghidra-app/actions/workflows/build.yml)
+[![Downloads](https://img.shields.io/github/downloads/blacktop/ghidra-app/total.svg)](https://github.com/blacktop/ghidra-app/releases)
 
 > Ghidra CI/CD to build and host a *universal* macOS Ghidra.app
 
