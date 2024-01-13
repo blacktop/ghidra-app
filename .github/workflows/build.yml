@@ -42,7 +42,11 @@ jobs:
       run: |
         cd ghidra
         gradle --init-script $RUNNER_PATH/init.gradle buildNatives_mac_x86_64
+        echo "👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀"
+        find . -name 'decompile' -type f | xargs file
         gradle --init-script $RUNNER_PATH/init.gradle buildNatives_mac_arm_64
+        echo "👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀"        
+        find . -name 'decompile' -type f | xargs file        
     - name: Build (buildGhidra)
       run: |
         cd ghidra
