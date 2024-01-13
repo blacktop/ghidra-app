@@ -38,7 +38,7 @@ jobs:
         gradle -I gradle/support/fetchDependencies.gradle init
     - name: Build (buildNatives)
       run: |
-        ls -lah
+        pwd
         cd ghidra
         gradle --project-dir Ghidra --init-script ~/init.gradle buildNatives_mac_arm_64
         gradle --project-dir GPL --init-script ~/init.gradle buildNatives_mac_arm_64
