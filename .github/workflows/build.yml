@@ -21,12 +21,10 @@ jobs:
     - name: Set GHIDRA_VERSION
       run: |
         echo "GHIDRA_VERSION=$(grep application.version ghidra/Ghidra/application.properties | sed "s/application.version=//")" >> $GITHUB_ENV
-        echo $GHIDRA_VERSION
-        echo "${{ env.GHIDRA_VERSION }}"
-        echo "${{ github.GHIDRA_VERSION }}"
-        echo "${{ github.action_path }}"
     - name: Test
-      run: echo $GHIDRA_VERSION
+      run: |
+        echo $GHIDRA_VERSION
+        echo $GITHUB_ACTION_PATH
     - uses: actions/cache@v3
       with:
         path: |
@@ -47,8 +45,8 @@ jobs:
       run: |
         pwd
         cd ghidra
-        gradle --project-dir Ghidra --init-script "$GITHUB_ACTION_PATH/init.gradle" buildNatives_mac_arm_64
-        gradle --project-dir GPL --init-script "$GITHUB_ACTION_PATH/init.gradle" buildNatives_mac_arm_64
+        gradle --project-dir Ghidra --init-script ${{ github.action_path }}/init.gradle buildNatives_mac_arm_64
+        gradle --project-dir GPL --init-script ${{ github.action_path }}/init.gradle buildNatives_mac_arm_64
     # - name: Build (assembleAll)
     #   run: |
     #     cd ghidra
