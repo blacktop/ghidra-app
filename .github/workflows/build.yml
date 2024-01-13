@@ -47,11 +47,8 @@ jobs:
         sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
         sudo xcode-select -s "/Applications/Xcode_15.1.app"
         gradle buildNatives_mac_arm_64
-        echo "👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀"
+        gradle buildNatives_mac_x86_64    
         find . -name 'decompile' -type f | xargs file
-        gradle buildNatives_mac_x86_64
-        echo "👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀"        
-        find . -name 'decompile' -type f | xargs file        
     - name: Build (buildGhidra)
       run: |
         cd ghidra
@@ -84,9 +81,9 @@ jobs:
         path: |
           Ghidra_${{ env.GHIDRA_VERSION }}.zip
           Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
-    # - name: Release
-    #   env:
-    #     GH_TOKEN: ${{ github.token }}
-    #   run: |
-    #     gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip
-    #     gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
+    - name: Release
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip
+        gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
