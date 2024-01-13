@@ -25,6 +25,8 @@ jobs:
         echo "${{ env.GHIDRA_VERSION }}"
         echo "${{ github.GHIDRA_VERSION }}"
         echo "${{ github.action_path }}"
+    - name: Test
+      run: echo $GHIDRA_VERSION        
     - uses: actions/cache@v3
       with:
         path: |
