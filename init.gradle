@@ -1,12 +1,16 @@
 allprojects {
-	model {
-		toolChains {
-			clang(Clang) {
-				target("mac_arm_64") {
-					cCompiler.withArguments { args -> args += ['-target', 'arm64-apple-macos11' ] }
-					cppCompiler.withArguments { args -> args += ['-target', 'arm64-apple-macos11' ] }
-				}
-			}
-		}
-	}
+  model {
+    toolChains {
+      clang(Clang) {
+        target("mac_x86_64") {
+          cCompiler.withArguments { args -> args += ['-target', 'x86_64-apple-macos11' ] }
+          cppCompiler.withArguments { args -> args += ['-target', 'x86_64-apple-macos11' ] }
+        }
+        target("mac_arm_64") {
+          cCompiler.withArguments { args -> args += ['-target', 'arm64-apple-macos11' ] }
+          cppCompiler.withArguments { args -> args += ['-target', 'arm64-apple-macos11' ] }
+        }
+      }
+    }
+  }
 }

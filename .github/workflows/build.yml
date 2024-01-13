@@ -41,12 +41,12 @@ jobs:
     - name: Build (buildNatives)
       run: |
         cd ghidra
+        gradle --init-script $RUNNER_PATH/init.gradle buildNatives_mac_x86_64
         gradle --init-script $RUNNER_PATH/init.gradle buildNatives_mac_arm_64
-        # gradle --project-dir GPL --init-script $RUNNER_PATH/init.gradle buildNatives_mac_arm_64
     - name: Build (buildGhidra)
       run: |
         cd ghidra
-        gradle buildGhidra -PallPlatforms
+        gradle --init-script $RUNNER_PATH/init.gradle buildGhidra -PallPlatforms
     # - name: Build (assembleAll)
     #   run: |
     #     cd ghidra
@@ -75,9 +75,9 @@ jobs:
         path: |
           Ghidra_${{ env.GHIDRA_VERSION }}.zip
           Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
-    - name: Release
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        gh release edit v${{ env.GHIDRA_VERSION }} --latest --title "Ghidra ${{ env.GHIDRA_VERSION }}" --notes "sha256 `{{ env.GHIDRA_SHA256 }}`"
-        gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
+    # - name: Release
+    #   env:
+    #     GH_TOKEN: ${{ github.token }}
+    #   run: |
+    #     gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip
+    #     gh release upload v11.0 --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
