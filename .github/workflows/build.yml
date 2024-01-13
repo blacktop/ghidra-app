@@ -68,7 +68,7 @@ jobs:
       run: |
         zip Ghidra_${{ env.GHIDRA_VERSION }}.zip -r Ghidra.app/
         shasum -a 256 Ghidra_${{ env.GHIDRA_VERSION }}.zip > Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
-        echo "GHIDRA_SHA256=$( cat Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256)" >> $GITHUB_ENV
+        echo "GHIDRA_SHA256=$(shasum -a 256 Ghidra_${{ env.GHIDRA_VERSION }}.zip)" >> $GITHUB_ENV
     - uses: actions/upload-artifact@v4
       with:
         name: Ghidra
