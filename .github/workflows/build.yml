@@ -46,10 +46,10 @@ jobs:
         cd ghidra
         sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
         sudo xcode-select -s "/Applications/Xcode_15.1.app"
-        gradle --init-script $RUNNER_PATH/init.gradle buildNatives_mac_arm_64
+        gradle buildNatives_mac_arm_64
         echo "👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀"
         find . -name 'decompile' -type f | xargs file
-        gradle buildNatives
+        gradle buildNatives_mac_x86_64
         echo "👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀"        
         find . -name 'decompile' -type f | xargs file        
     - name: Build (buildGhidra)
