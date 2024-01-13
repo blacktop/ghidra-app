@@ -3,11 +3,11 @@
 [![Build](https://github.com/blacktop/ghidra-apple-silicon/actions/workflows/build.yml/badge.svg)](https://github.com/blacktop/ghidra-apple-silicon/actions/workflows/build.yml)
 [![Downloads](https://img.shields.io/github/downloads/blacktop/ghidra-apple-silicon/total.svg)](https://github.com/blacktop/ghidra-apple-silicon/releases)
 
-> Ghidra CI/CD to build and host Apple Silicon Ghidra.app
+> Ghidra CI/CD to build and host a *universal* macOS Ghidra.app
 
 ## Why? 🤔
 
-This will be the asset host for a homebrew tap for Ghidra on Apple Silicon.
+This will be the asset host for a homebrew tap for Ghidra.app.
 
 ## Usage
 

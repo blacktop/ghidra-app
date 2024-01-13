@@ -11,7 +11,6 @@ concurrency:
 
 jobs:
   build:
-    # runs-on: macos-latest-xlarge
     runs-on: macos-13
     steps:
     - uses: actions/checkout@v4
@@ -33,10 +32,6 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
-    # - name: Download OpenJDK 17
-    #   run: |
-    #     curl -L -o java.tar.gz 'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9%2B9/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.9_9.tar.gz'
-    #     echo "823777266415347983bbd87ccd8136537242ff27e62f307b7e8521494c665f0d" java.tar.gz | shasum --algorithm 256 --check --status
     - name: Build (fetchDependencies)
       run: |
         cd ghidra
@@ -67,6 +62,10 @@ jobs:
       run: |
         ls -lah
         ./CreateGhidraApp.sh ghidra/build/dist/ghidra_${{ env.GHIDRA_VERSION }}_DEV
+    # - name: Download OpenJDK 17
+    #   run: |
+    #     curl -L -o java.tar.gz 'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9%2B9/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.9_9.tar.gz'
+    #     echo "823777266415347983bbd87ccd8136537242ff27e62f307b7e8521494c665f0d" java.tar.gz | shasum --algorithm 256 --check --status        
     # - name: Install Java
     #   run: |
     #     tar zxf java.tar.gz -C Ghidra.app/
@@ -75,12 +74,12 @@ jobs:
         zip Ghidra_${{ env.GHIDRA_VERSION }}.zip -r Ghidra.app/
         shasum -a 256 Ghidra_${{ env.GHIDRA_VERSION }}.zip > Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
         echo "GHIDRA_SHA256=$(shasum -a 256 Ghidra_${{ env.GHIDRA_VERSION }}.zip)" >> $GITHUB_ENV
-    - uses: actions/upload-artifact@v4
-      with:
-        name: Ghidra
-        path: |
-          Ghidra_${{ env.GHIDRA_VERSION }}.zip
-          Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
+    # - uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Ghidra
+    #     path: |
+    #       Ghidra_${{ env.GHIDRA_VERSION }}.zip
+    #       Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
     - name: Release
       env:
         GH_TOKEN: ${{ github.token }}
