@@ -54,7 +54,7 @@ jobs:
     - name: Build (buildGhidra)
       run: |
         cd ghidra
-        gradle buildGhidra
+        gradle --init-script $RUNNER_PATH/init.gradle buildGhidra
     - name: Deps
       run: brew install imagemagick
     - name: Unzip dist/ghidra.zip
