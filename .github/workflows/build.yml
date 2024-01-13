@@ -56,28 +56,28 @@ jobs:
     - name: Unzip dist/ghidra.zip
       run: |
         ls -lah ghidra/build/dist/
-        unzip ghidra/build/dist/ghidra_$GHIDRA_VERSION_*.zip -d ghidra/build/dist/
+        unzip ghidra/build/dist/ghidra_${{ env.GHIDRA_VERSION }}_*.zip -d ghidra/build/dist/
     - name: CreateGhidraApp
       run: |
         ls -lah
-        ./CreateGhidraApp.sh ghidra/build/dist/ghidra_$GHIDRA_VERSION_DEV
+        ./CreateGhidraApp.sh ghidra/build/dist/ghidra_${{ env.GHIDRA_VERSION }}_DEV
     # - name: Install Java
     #   run: |
     #     tar zxf java.tar.gz -C Ghidra.app/
     - name: Zip Ghidra.app
       run: |
-        zip Ghidra_$GHIDRA_VERSION.zip -r Ghidra.app/
-        shasum -a 256 Ghidra_$GHIDRA_VERSION.zip > Ghidra_$GHIDRA_VERSION.zip.sha256
-        cat Ghidra_$GHIDRA_VERSION.zip.sha256
+        zip Ghidra_${{ env.GHIDRA_VERSION }}.zip -r Ghidra.app/
+        shasum -a 256 Ghidra_${{ env.GHIDRA_VERSION }}.zip > Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
+        cat Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
     - uses: actions/upload-artifact@v4
       with:
         name: Ghidra
         path: |
-          Ghidra_$GHIDRA_VERSION.zip
-          Ghidra_$GHIDRA_VERSION.zip.sha256
+          Ghidra_${{ env.GHIDRA_VERSION }}.zip
+          Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Ghidra_$GHIDRA_VERSION.zip
-          Ghidra_$GHIDRA_VERSION.zip.sha256
+          Ghidra_${{ env.GHIDRA_VERSION }}.zip
+          Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
