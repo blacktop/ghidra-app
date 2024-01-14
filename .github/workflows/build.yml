@@ -23,7 +23,6 @@ jobs:
     - name: Set GHIDRA_VERSION
       run: |
         echo "GHIDRA_VERSION=$(grep application.version ghidra/Ghidra/application.properties | sed "s/application.version=//")" >> $GITHUB_ENV
-        echo "RUNNER_PATH=$(pwd)" >> $GITHUB_ENV
     - uses: actions/cache@v3
       with:
         path: |
@@ -77,12 +76,12 @@ jobs:
         zip Ghidra_${{ env.GHIDRA_VERSION }}.zip -r Ghidra.app/
         shasum -a 256 Ghidra_${{ env.GHIDRA_VERSION }}.zip > Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
         echo "GHIDRA_SHA256=$(shasum -a 256 Ghidra_${{ env.GHIDRA_VERSION }}.zip | head -c 64)" >> $GITHUB_ENV
-    - uses: actions/upload-artifact@v4
-      with:
-        name: Ghidra
-        path: |
-          Ghidra_${{ env.GHIDRA_VERSION }}.zip
-          Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
+    # - uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Ghidra
+    #     path: |
+    #       Ghidra_${{ env.GHIDRA_VERSION }}.zip
+    #       Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
     - name: Release
       env:
         GH_TOKEN: ${{ github.token }}
@@ -90,5 +89,4 @@ jobs:
         ls -lah
         gh release upload v${{ env.GHIDRA_VERSION }} --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip
         gh release upload v${{ env.GHIDRA_VERSION }} --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
-        echo "sha256: \`${{ env.GHIDRA_SHA256 }}\`" > notes.md
-        gh release edit v${{ env.GHIDRA_VERSION }} --notes-file notes.md 
+        gh release edit v${{ env.GHIDRA_VERSION }} --notes "sha256: \`${{ env.GHIDRA_SHA256 }}\`" 
