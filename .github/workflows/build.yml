@@ -62,6 +62,7 @@ jobs:
       run: |
         ls -lah
         ./CreateGhidraApp.sh ghidra/build/dist/ghidra_${{ env.GHIDRA_VERSION }}_DEV
+        codesign --force --deep -s - --entitlements entitlements.plist Ghidra.app
     # - name: Download OpenJDK 17
     #   run: |
     #     curl -L -o java.tar.gz 'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.9%2B9/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.9_9.tar.gz'
