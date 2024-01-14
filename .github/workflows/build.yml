@@ -62,6 +62,8 @@ jobs:
       run: |
         ls -lah
         ./CreateGhidraApp.sh ghidra/build/dist/ghidra_${{ env.GHIDRA_VERSION }}_DEV
+        xattr -lr Ghidra.app
+        xattr -cr Ghidra.app
         codesign --force --deep -s - --entitlements entitlements.plist Ghidra.app
     # - name: Download OpenJDK 17
     #   run: |
