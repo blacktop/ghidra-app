@@ -87,14 +87,14 @@ if [ $# -ne 1 ]; then
 fi
 
 mkdir -p Ghidra.app/Contents/MacOS
-cat << EOF | clang -x objective-c --target arm64-apple-macos11 -fmodules -framework Foundation -o /tmp/Ghidra_arm -
+cat << EOF | clang -x objective-c -target arm64-apple-macos11 -fmodules -framework Foundation -o /tmp/Ghidra_arm -
 @import Foundation;
 
 int main() {
 	execl([NSBundle.mainBundle.resourcePath stringByAppendingString:@"/ghidra/ghidraRun"].UTF8String, NULL);
 }
 EOF
-cat << EOF | clang -x objective-c --target x86_64-apple-macos10.12 -fmodules -framework Foundation -o /tmp/Ghidra_x86 -
+cat << EOF | clang -x objective-c -target x86_64-apple-macos10.12 -fmodules -framework Foundation -o /tmp/Ghidra_x86 -
 @import Foundation;
 
 int main() {
