@@ -235,6 +235,9 @@ public class GhidraFileChooser extends DialogComponentProvider {
 	public void setApproveButtonToolTipText(String tooltipText) {
 	}
 
+	public void setLastDirectoryPreference(String newKey) {
+	}
+
 	public File getSelectedFile() {
 		show();
 		String path = fileDialog.getFile();
