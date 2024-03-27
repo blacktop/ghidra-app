@@ -39,7 +39,7 @@ jobs:
       run: |
         cd ghidra
         sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
-        sudo xcode-select -s "/Applications/Xcode_15.3.app"
+        sudo xcode-select -s "/Applications/Xcode_15.2.app"
         gradle buildNatives_mac_arm_64
         gradle buildNatives_mac_x86_64
         find . -name 'decompile' -type f | xargs file
