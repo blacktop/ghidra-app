@@ -53,8 +53,8 @@ jobs:
     #     gradle assembleAll
     - name: Deps
       run: |
-        brew update
-        brew install imagemagick gh
+        brew install imagemagick
+        brew install gh
     - name: Unzip dist/ghidra.zip
       run: |
         ls -lah ghidra/build/dist/
