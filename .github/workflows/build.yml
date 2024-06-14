@@ -53,6 +53,7 @@ jobs:
     #     gradle assembleAll
     - name: Deps
       run: |
+        rm '/usr/local/bin/2to3' || true
         brew install imagemagick
         brew install gh
     - name: Unzip dist/ghidra.zip
