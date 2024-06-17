@@ -53,8 +53,8 @@ jobs:
     #     gradle assembleAll
     - name: Deps
       run: |
-        rm '/usr/local/bin/2to3' || true
-        rm '/usr/local/bin/2to3-3.12' || true
+        brew install python@3.12 || true
+        brew link --overwrite python@3.12
         brew install imagemagick
         brew install gh
     - name: Unzip dist/ghidra.zip
