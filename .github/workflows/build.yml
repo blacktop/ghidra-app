@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
     - name: Clone Ghidra
@@ -33,19 +33,19 @@ jobs:
           ${{ runner.os }}-gradle-
     - name: Build (fetchDependencies)
       run: |
-        cd ghidra
-        gradle -I gradle/support/fetchDependencies.gradle init
+        cd ghidra/support/gradle/
+        gradle -I gradle/support/fetchDependencies.gradle
     - name: Build (buildNatives)
       run: |
-        cd ghidra
+        cd ghidra/support/gradle/
         sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
-        sudo xcode-select -s "/Applications/Xcode_15.1.app"
+        sudo xcode-select -s "/Applications/Xcode_16.0.app"
         gradle buildNatives_mac_arm_64
         gradle buildNatives_mac_x86_64
         find . -name 'decompile' -type f | xargs file
     - name: Build (buildGhidra)
       run: |
-        cd ghidra
+        cd ghidra/support/gradle/
         gradle buildGhidra -PallPlatforms
     # - name: Build (assembleAll)
     #   run: |
