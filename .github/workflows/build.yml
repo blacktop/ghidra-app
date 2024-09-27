@@ -33,11 +33,11 @@ jobs:
           ${{ runner.os }}-gradle-
     - name: Build (fetchDependencies)
       run: |
-        cd ghidra/support/gradle/
+        cd ghidra
         gradle -I gradle/support/fetchDependencies.gradle
     - name: Build (buildNatives)
       run: |
-        cd ghidra/support/gradle/
+        cd ghidra
         sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
         sudo xcode-select -s "/Applications/Xcode_16.0.app"
         gradle buildNatives_mac_arm_64
@@ -45,7 +45,7 @@ jobs:
         find . -name 'decompile' -type f | xargs file
     - name: Build (buildGhidra)
       run: |
-        cd ghidra/support/gradle/
+        cd ghidra
         gradle buildGhidra -PallPlatforms
     # - name: Build (assembleAll)
     #   run: |
