@@ -204,10 +204,12 @@ public class GhidraFileChooser extends DialogComponentProvider {
 	}
 
 	public void setFileSelectionMode(int mode) {
+		// System.setProperty("apple.awt.fileDialogForDirectories", "true");
 		this.mode = mode;
 	}
 
 	public void setFileSelectionMode(GhidraFileChooserMode mode) {
+		// System.setProperty("apple.awt.fileDialogForDirectories", "true");
 		switch (mode) {
 		case FILES_ONLY:
 			this.mode = 0;
