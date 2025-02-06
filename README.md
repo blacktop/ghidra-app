@@ -22,4 +22,4 @@ brew install --cask blacktop/tap/ghidra-app
 
 ## License
 
-MIT Copyright (c) 2024 blacktop
+MIT Copyright (c) 2025 blacktop

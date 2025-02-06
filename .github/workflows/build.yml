@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: NationalSecurityAgency/ghidra
-        ref: Ghidra_11.2.1_build
+        ref: Ghidra_11.3_build
         path: ghidra
     - name: Set GHIDRA_VERSION
       run: |
@@ -39,7 +39,7 @@ jobs:
       run: |
         cd ghidra
         sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
-        sudo xcode-select -s "/Applications/Xcode_16.0.app"
+        sudo xcode-select -s "/Applications/Xcode_16.2.app"
         gradle buildNatives_mac_arm_64
         gradle buildNatives_mac_x86_64
         find . -name 'decompile' -type f | xargs file
