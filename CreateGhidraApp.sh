@@ -77,7 +77,7 @@ create_iconset() {
 }
 EOF
 	for size in 16 32 64 128 256 512 1024; do
-		convert "$1" -resize "${size}x${size}" "Ghidra.iconset/icon_${size}x${size}.png"
+		magick "$1" -resize "${size}x${size}" "Ghidra.iconset/icon_${size}x${size}.png"
 	done
 }
 
@@ -110,13 +110,13 @@ sed "s/apple.laf.useScreenMenuBar=false/apple.laf.useScreenMenuBar=true/" < "$1/
 echo "APPL????" > Ghidra.app/Contents/PkgInfo
 jar -x -f Ghidra.app/Contents/Resources/ghidra/Ghidra/Framework/Gui/lib/Gui.jar images/GhidraIcon256.png
 if [ "$( (sw_vers -productVersion; echo "11.0") | sort -V | head -n 1)" = "11.0" ]; then
-	convert \( -size 1024x1024 canvas:none -fill white -draw 'roundRectangle 100,100 924,924 180,180' \) \( +clone -background black -shadow 25x12+0+12 \) +swap -background none -layers flatten -crop 1024x1024+0+0 \( images/GhidraIcon256.png -resize 704x704 -gravity center \) -composite GhidraIcon.png
+	magick \( -size 1024x1024 canvas:none -fill white -draw 'roundRectangle 100,100 924,924 180,180' \) \( +clone -background black -shadow 25x12+0+12 \) +swap -background none -layers flatten -crop 1024x1024+0+0 \( images/GhidraIcon256.png -resize 704x704 -gravity center \) -composite GhidraIcon.png
 else
 	mv images/GhidraIcon256.png GhidraIcon.png
 fi
 create_iconset GhidraIcon.png
 for size in 16 24 32 40 48 64 128 256; do
-	convert GhidraIcon.png -resize "${size}x${size}" "images/GhidraIcon${size}.png"
+	magick GhidraIcon.png -resize "${size}x${size}" "images/GhidraIcon${size}.png"
 	jar -u -f Ghidra.app/Contents/Resources/ghidra/Ghidra/Framework/Generic/lib/Generic.jar "images/GhidraIcon${size}.png"
 done
 
@@ -172,6 +172,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -186,7 +187,7 @@ public class GhidraFileChooser extends DialogComponentProvider {
 	public static final int FILES_AND_DIRECTORIES = 2;
 
 	public GhidraFileChooser(Component parent) {
-		this(new LocalFileChooserModel(), parent);
+		this(new LocalFileChooserModel(() -> null), parent);
 	}
 
 	GhidraFileChooser(GhidraFileChooserModel model, Component parent) {
