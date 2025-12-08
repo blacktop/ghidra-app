@@ -28,9 +28,13 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('ghidra/**/*.gradle*', 'ghidra/**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+      - name: Clean Gradle build cache
+        run: |
+          cd ghidra
+          gradle clean || true
       - name: Build (fetchDependencies)
         run: |
           cd ghidra
