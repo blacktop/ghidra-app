@@ -23,18 +23,19 @@ jobs:
       - name: Set GHIDRA_VERSION
         run: |
           echo "GHIDRA_VERSION=$(grep application.version ghidra/Ghidra/application.properties | sed "s/application.version=//")" >> $GITHUB_ENV
+          echo "GHIDRA_COMMIT=$(git -C ghidra rev-parse HEAD)" >> $GITHUB_ENV
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('ghidra/gradle/wrapper/gradle-wrapper.properties') }}
       - uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('ghidra/**/*.gradle*', 'ghidra/**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-caches-${{ env.GHIDRA_COMMIT }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
-      - name: Clean Gradle build cache
-        run: |
-          cd ghidra
-          gradle clean || true
+            ${{ runner.os }}-gradle-caches-
       - name: Build (fetchDependencies)
         run: |
           cd ghidra
