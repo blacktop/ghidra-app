@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: NationalSecurityAgency/ghidra
-          ref: Ghidra_12.0.2_build
+          ref: Ghidra_12.0.3_build
           path: ghidra
       - name: Set GHIDRA_VERSION
         run: |
