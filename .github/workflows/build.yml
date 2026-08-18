@@ -12,6 +12,11 @@ concurrency:
 jobs:
   build:
     runs-on: macos-latest
+    env:
+      # Ghidra's gradle native build passes no -mmacosx-version-min, so clang would
+      # default minos to the runner's OS version and the natives would refuse to load
+      # on older macOS. Set at job level so the gradle daemon inherits it.
+      MACOSX_DEPLOYMENT_TARGET: "13.0"
     steps:
       - uses: actions/checkout@v4
       - name: Clone Ghidra
@@ -44,10 +49,11 @@ jobs:
         run: |
           cd ghidra
           sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
-          sudo xcode-select -s "/Applications/Xcode_16.2.app"
+          sudo xcode-select -s "/Applications/Xcode_26.0.1.app"
           gradle buildNatives_mac_arm_64
           gradle buildNatives_mac_x86_64
           find . -name 'decompile' -type f | xargs file
+          find . -name 'decompile' -type f -exec vtool -show-build {} \; || true
       - name: Build (buildGhidra)
         run: |
           cd ghidra
