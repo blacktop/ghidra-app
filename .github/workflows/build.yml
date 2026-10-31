@@ -27,8 +27,16 @@ jobs:
           path: ghidra
       - name: Set GHIDRA_VERSION
         run: |
-          echo "GHIDRA_VERSION=$(grep application.version ghidra/Ghidra/application.properties | sed "s/application.version=//")" >> $GITHUB_ENV
-          echo "GHIDRA_COMMIT=$(git -C ghidra rev-parse HEAD)" >> $GITHUB_ENV
+          {
+            echo "GHIDRA_VERSION=$(grep application.version ghidra/Ghidra/application.properties | sed "s/application.version=//")"
+            echo "GHIDRA_COMMIT=$(git -C ghidra rev-parse HEAD)"
+            echo "GHIDRA_JAVA_VERSION=$(sed -n 's/^application\.java\.compiler=//p' ghidra/Ghidra/application.properties)"
+          } >> "$GITHUB_ENV"
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: ${{ env.GHIDRA_JAVA_VERSION }}
       - uses: actions/cache@v3
         with:
           path: |
