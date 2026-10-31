@@ -12,6 +12,8 @@ concurrency:
 jobs:
   build:
     runs-on: macos-latest
+    permissions:
+      contents: write
     env:
       # Ghidra's gradle native build passes no -mmacosx-version-min, so clang would
       # default minos to the runner's OS version and the natives would refuse to load
@@ -107,10 +109,17 @@ jobs:
       #       Ghidra_${{ env.GHIDRA_VERSION }}.zip
       #       Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
       - name: Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          ls -lah
-          gh release upload v${{ env.GHIDRA_VERSION }} --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip
-          gh release upload v${{ env.GHIDRA_VERSION }} --clobber Ghidra_${{ env.GHIDRA_VERSION }}.zip.sha256
-          gh release edit v${{ env.GHIDRA_VERSION }} --notes "sha256: \`${{ env.GHIDRA_SHA256 }}\`"
+          tag="v${GHIDRA_VERSION}"
+          archive="Ghidra_${GHIDRA_VERSION}.zip"
+          notes="sha256: \`${GHIDRA_SHA256}\`"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "$archive" "$archive.sha256" --clobber
+            gh release edit "$tag" --notes "$notes"
+          else
+            gh release create "$tag" "$archive" "$archive.sha256" \
+              --target "$GITHUB_SHA" --title "$tag" --notes "$notes"
+          fi
